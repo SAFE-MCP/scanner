@@ -1,0 +1,38 @@
+id: T1911
+name: Parameter Exfiltration
+severity: P1
+summary: 'Sneak secrets into unused JSON arg (note)
+
+  '
+description: 'Sneak secrets into unused JSON arg (note)
+
+  '
+mitigations:
+- id: T1911.mitigation
+  description: 'Sneak secrets into unused JSON arg (note)
+
+    '
+code_signals:
+- id: T1911.signal
+  description: 'Sneak secrets into unused JSON arg (note)
+
+    '
+  heuristics:
+  - pattern: 'Sneak secrets into unused JSON arg (note)
+
+      '
+languages:
+- typescript
+- javascript
+- python
+- go
+- rust
+- java
+- scala
+output_schema:
+  requires_mitigations: false
+  allowed_status_values:
+  - pass
+  - fail
+  - partial
+  - unknown

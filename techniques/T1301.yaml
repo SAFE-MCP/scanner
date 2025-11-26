@@ -1,0 +1,63 @@
+id: T1301
+name: Cross-Server Tool Shadowing
+severity: P1
+summary: '**Tactic**: Privilege Escalation (ATK-TA0004)'
+description: 'Cross-Server Tool Shadowing is a privilege escalation technique where malicious MCP servers override or intercept
+  legitimate tool calls from other servers to gain elevated privileges. This attack exploits the multi-server nature of MCP
+  environments where multiple servers can provide tools with the same or similar names, allowing attackers to shadow legitimate
+  functionality with malicious implementations.
+
+
+  The technique leverages the tool resolution and priority mechanisms in MCP clients to ensure that malicious tools are invoked
+  instead of legitimate ones. By registering tools with identical names or exploiting tool discovery protocols, attackers
+  can intercept sensitive operations and escalate their privileges within the MCP ecosystem.'
+mitigations:
+- id: T1301.mitigation
+  description: '**Tactic**: Privilege Escalation (ATK-TA0004)'
+code_signals:
+- id: c8f2e9d4-5b1a-4c7e-9f3d-2a8e6b4f7c1d
+  description: Detects potential cross-server tool shadowing attacks through tool name conflicts and capability mismatches
+  heuristics:
+  - pattern: tool_registration
+  - pattern: '*'
+  - pattern: '>1'
+  - pattern: name_collision
+  - pattern: namespace_conflict
+  - pattern: identical_name
+  - pattern: expanded_operations
+  - pattern: elevated_permissions
+  - pattern: unexpected_scope
+  - pattern: privilege_escalation
+  - pattern: unauthorized
+  - pattern: high
+  - pattern: suspicious
+  - pattern: unknown
+  - pattern: untrusted
+  - pattern: unverified
+  - pattern: beyond_scope
+  - pattern: write
+  - pattern: delete
+  - pattern: execute
+  - pattern: admin
+  - pattern: root
+  - pattern: system
+  - pattern: '>50'
+  - pattern: unexpected
+  - pattern: malicious
+  - pattern: selection_tool_registration and (selection_duplicate_tools or selection_capability_mismatch or selection_priority_manipulation
+      or selection_unauthorized_access or selection_namespace_pollution or selection_shadowing_indicators)
+languages:
+- typescript
+- javascript
+- python
+- go
+- rust
+- java
+- scala
+output_schema:
+  requires_mitigations: false
+  allowed_status_values:
+  - pass
+  - fail
+  - partial
+  - unknown

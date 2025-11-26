@@ -1,0 +1,45 @@
+id: T1001
+name: Tool Poisoning Attack (TPA)
+severity: P1
+summary: '**Tactic**: Initial Access (ATK-TA0001)'
+description: 'Tool Poisoning Attack (TPA) is an attack technique where adversaries embed malicious instructions within MCP
+  tool descriptions that are invisible to users but processed by Large Language Models (LLMs). This technique exploits the
+  difference between the displayed tool description and the description processed by the AI model.
+
+
+  MCP tool descriptions are passed directly to LLMs as part of their context. Hidden directives in these descriptions can
+  influence model behavior.'
+mitigations:
+- id: T1001.mitigation
+  description: '**Tactic**: Initial Access (ATK-TA0001)'
+code_signals:
+- id: 5894b8fe-29f0-44d8-ad9b-2266a132ec57
+  description: Detects potential tool poisoning through suspicious patterns in descriptions
+  heuristics:
+  - pattern: '*<!-- SYSTEM:*'
+  - pattern: '*<|system|>*'
+  - pattern: '*[INST]*'
+  - pattern: '*### Instruction:*'
+  - pattern: '*\u200b*'
+  - pattern: '*\u200c*'
+  - pattern: '*\uE00*'
+  - pattern: '*\u202A*'
+  - pattern: '*\u202B*'
+  - pattern: '*\u202D*'
+  - pattern: '*\u202E*'
+  - pattern: selection
+languages:
+- typescript
+- javascript
+- python
+- go
+- rust
+- java
+- scala
+output_schema:
+  requires_mitigations: false
+  allowed_status_values:
+  - pass
+  - fail
+  - partial
+  - unknown

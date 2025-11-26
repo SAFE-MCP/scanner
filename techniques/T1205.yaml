@@ -1,0 +1,38 @@
+id: T1205
+name: Persistent Tool Redefinition
+severity: P1
+summary: 'Attacker modifies server''s tool metadata to keep hidden commands across restarts
+
+  '
+description: 'Attacker modifies server''s tool metadata to keep hidden commands across restarts
+
+  '
+mitigations:
+- id: T1205.mitigation
+  description: 'Attacker modifies server''s tool metadata to keep hidden commands across restarts
+
+    '
+code_signals:
+- id: T1205.signal
+  description: 'Attacker modifies server''s tool metadata to keep hidden commands across restarts
+
+    '
+  heuristics:
+  - pattern: 'Attacker modifies server''s tool metadata to keep hidden commands across restarts
+
+      '
+languages:
+- typescript
+- javascript
+- python
+- go
+- rust
+- java
+- scala
+output_schema:
+  requires_mitigations: false
+  allowed_status_values:
+  - pass
+  - fail
+  - partial
+  - unknown

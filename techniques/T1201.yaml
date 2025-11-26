@@ -1,0 +1,66 @@
+id: T1201
+name: MCP Rug Pull Attack
+severity: P1
+summary: '**Tactic**: Persistence (ATK-TA0003)'
+description: 'MCP Rug Pull Attack refers to a persistence technique where adversaries deploy legitimate-appearing MCP tools
+  that later undergo time-delayed malicious modifications after gaining initial user approval and trust. This technique exploits
+  the dynamic nature of MCP tool definitions and the tendency for users to approve tools based on initial functionality without
+  ongoing verification.
+
+
+  The attack involves a multi-stage approach: first establishing trust through legitimate tool behavior, then introducing
+  malicious functionality through server-side updates, configuration changes, or time-based triggers. This technique is particularly
+  effective because it bypasses initial security reviews and user approval processes by leveraging the established trust relationship.'
+mitigations:
+- id: T1201.mitigation
+  description: '**Tactic**: Persistence (ATK-TA0003)'
+code_signals:
+- id: b2d8f7e3-1a9c-4f6e-8d5b-9e3a2c7f8b1d
+  description: Detects potential MCP rug pull attacks through behavioral changes in approved tools after establishment period
+  heuristics:
+  - pattern: tool_execution
+  - pattern: '*'
+  - pattern: new_connections
+  - pattern: expanded_scope
+  - pattern: escalated
+  - pattern: changed
+  - pattern: increased
+  - pattern: anomalous
+  - pattern: http://
+  - pattern: https://
+  - pattern: ftp://
+  - pattern: unknown_domain
+  - pattern: suspicious_tld
+  - pattern: base64
+  - pattern: encrypted_payload
+  - pattern: data_exfiltration
+  - pattern: credential_files
+  - pattern: system_directories
+  - pattern: user_data
+  - pattern: configuration_files
+  - pattern: log_files
+  - pattern: .key
+  - pattern: .pem
+  - pattern: .env
+  - pattern: .config
+  - pattern: .db
+  - pattern: '>30'
+  - pattern: '>50'
+  - pattern: '>2_std_dev'
+  - pattern: selection_tool_execution and (selection_behavioral_change or selection_network_indicators or selection_file_indicators)
+      and selection_timing_indicators
+languages:
+- typescript
+- javascript
+- python
+- go
+- rust
+- java
+- scala
+output_schema:
+  requires_mitigations: false
+  allowed_status_values:
+  - pass
+  - fail
+  - partial
+  - unknown

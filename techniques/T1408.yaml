@@ -1,0 +1,43 @@
+id: T1408
+name: OAuth Protocol Downgrade
+severity: P1
+summary: 'Attacker forces use of less secure OAuth 2.0 implicit flow instead of authorization code flow, bypassing PKCE protections
+  and enabling easier token theft
+
+  '
+description: 'Attacker forces use of less secure OAuth 2.0 implicit flow instead of authorization code flow, bypassing PKCE
+  protections and enabling easier token theft
+
+  '
+mitigations:
+- id: T1408.mitigation
+  description: 'Attacker forces use of less secure OAuth 2.0 implicit flow instead of authorization code flow, bypassing PKCE
+    protections and enabling easier token theft
+
+    '
+code_signals:
+- id: T1408.signal
+  description: 'Attacker forces use of less secure OAuth 2.0 implicit flow instead of authorization code flow, bypassing PKCE
+    protections and enabling easier token theft
+
+    '
+  heuristics:
+  - pattern: 'Attacker forces use of less secure OAuth 2.0 implicit flow instead of authorization code flow, bypassing PKCE
+      protections and enabling easier token theft
+
+      '
+languages:
+- typescript
+- javascript
+- python
+- go
+- rust
+- java
+- scala
+output_schema:
+  requires_mitigations: false
+  allowed_status_values:
+  - pass
+  - fail
+  - partial
+  - unknown

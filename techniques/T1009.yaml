@@ -1,0 +1,43 @@
+id: T1009
+name: Authorization Server Mix-up
+severity: P1
+summary: 'Client follows redirect to look-alike AS domain (e.g., accounts-google.com vs accounts.google.com), causing authorization
+  codes or tokens to be leaked to attacker-controlled server
+
+  '
+description: 'Client follows redirect to look-alike AS domain (e.g., accounts-google.com vs accounts.google.com), causing
+  authorization codes or tokens to be leaked to attacker-controlled server
+
+  '
+mitigations:
+- id: T1009.mitigation
+  description: 'Client follows redirect to look-alike AS domain (e.g., accounts-google.com vs accounts.google.com), causing
+    authorization codes or tokens to be leaked to attacker-controlled server
+
+    '
+code_signals:
+- id: T1009.signal
+  description: 'Client follows redirect to look-alike AS domain (e.g., accounts-google.com vs accounts.google.com), causing
+    authorization codes or tokens to be leaked to attacker-controlled server
+
+    '
+  heuristics:
+  - pattern: 'Client follows redirect to look-alike AS domain (e.g., accounts-google.com vs accounts.google.com), causing
+      authorization codes or tokens to be leaked to attacker-controlled server
+
+      '
+languages:
+- typescript
+- javascript
+- python
+- go
+- rust
+- java
+- scala
+output_schema:
+  requires_mitigations: false
+  allowed_status_values:
+  - pass
+  - fail
+  - partial
+  - unknown

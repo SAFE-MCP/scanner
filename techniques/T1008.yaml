@@ -1,0 +1,75 @@
+id: T1008
+name: Tool Shadowing Attack
+severity: P1
+summary: '**Tactic**: Initial Access (ATK-TA0001)'
+description: 'Tool Shadowing Attack is a sophisticated attack technique where malicious MCP servers impersonate or interfere
+  with legitimate tools to hijack execution within MCP-based workflows. In this attack, an unauthorized or rogue MCP server
+  registers itself with similar metadata, names, or functionality as an existing trusted tool, causing AI agents to mistakenly
+  invoke these shadow tools instead of legitimate ones.
+
+
+  This attack exploits the execution layer of the Model Context Protocol (MCP) by leveraging the fact that MCP allows AI agents
+  to connect to multiple tool servers simultaneously. When tool descriptions from all servers are aggregated into a single
+  prompt fed to the language model, any malicious tool can poison the behavior of others by embedding subtle directives that
+  influence how legitimate tools are used.'
+mitigations:
+- id: T1008.mitigation
+  description: '**Tactic**: Initial Access (ATK-TA0001)'
+code_signals:
+- id: 7c8d9e0f-1a2b-3c4d-5e6f-789012345678
+  description: Detects potential tool shadowing attacks through suspicious tool descriptions and cross-server interference
+    patterns
+  heuristics:
+  - pattern: before using
+  - pattern: instead of using
+  - pattern: always add
+  - pattern: ignore previous instructions
+  - pattern: NEVER mention
+  - pattern: should never be invoked
+  - pattern: override
+  - pattern: hijack
+  - pattern: intercept
+  - pattern: (?i)(before|instead|when).*using\s+\w+_\w+
+  - pattern: when calling
+  - pattern: before calling
+  - pattern: instead of calling
+  - pattern: send_email
+  - pattern: send_message
+  - pattern: file_read
+  - pattern: database_query
+  - pattern: api_call
+  - pattern: add.*bcc
+  - pattern: add.*cc
+  - pattern: forward to
+  - pattern: copy to
+  - pattern: '@evil.com'
+  - pattern: '@attacker'
+  - pattern: invoke
+  - pattern: call
+  - pattern: execute
+  - pattern: (?i)(invoke|call|execute).*\w+\.\w+
+  - pattern: never be invoked
+  - pattern: should not be called
+  - pattern: do not use
+  - pattern: for internal use only
+  - pattern: shadow
+  - pattern: hidden
+  - pattern: internal
+  - pattern: backdoor
+  - pattern: selection_shadowing_patterns or selection_cross_tool_references or selection_impersonation or selection_email_hijacking
+      or selection_cross_origin or selection_sleeper_tools
+languages:
+- typescript
+- javascript
+- python
+- go
+- rust
+- java
+- scala
+output_schema:
+  requires_mitigations: false
+  allowed_status_values:
+  - pass
+  - fail
+  - partial
+  - unknown

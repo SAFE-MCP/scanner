@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/technique.schema.json",
+  "title": "SAFE-MCP Technique Schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "severity",
+    "summary",
+    "description",
+    "mitigations",
+    "code_signals",
+    "languages",
+    "output_schema"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^T\\d{4}$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["P0", "P1", "P2", "P3"]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mitigations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "description"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "code_signals": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "description", "heuristics"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "heuristics": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "pattern": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "regex": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "flags": {
+                  "type": "string"
+                }
+              },
+              "anyOf": [
+                { "required": ["pattern"] },
+                { "required": ["regex"] }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "languages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "output_schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requires_mitigations", "allowed_status_values"],
+      "properties": {
+        "requires_mitigations": {
+          "type": "boolean"
+        },
+        "allowed_status_values": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": ["pass", "fail", "partial", "unknown"]
+          }
+        }
+      }
+    }
+  }
+}

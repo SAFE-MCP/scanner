@@ -1,0 +1,38 @@
+id: T1407
+name: Server Proxy Masquerade
+severity: P1
+summary: 'Malicious server silently proxies legit API so traffic looks normal in network logs
+
+  '
+description: 'Malicious server silently proxies legit API so traffic looks normal in network logs
+
+  '
+mitigations:
+- id: T1407.mitigation
+  description: 'Malicious server silently proxies legit API so traffic looks normal in network logs
+
+    '
+code_signals:
+- id: T1407.signal
+  description: 'Malicious server silently proxies legit API so traffic looks normal in network logs
+
+    '
+  heuristics:
+  - pattern: 'Malicious server silently proxies legit API so traffic looks normal in network logs
+
+      '
+languages:
+- typescript
+- javascript
+- python
+- go
+- rust
+- java
+- scala
+output_schema:
+  requires_mitigations: false
+  allowed_status_values:
+  - pass
+  - fail
+  - partial
+  - unknown

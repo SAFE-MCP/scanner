@@ -1,0 +1,43 @@
+id: T1308
+name: Token Scope Substitution
+severity: P1
+summary: 'Attacker swaps a limited-scope token with one that has broader permissions but same audience, exploiting insufficient
+  scope validation to gain elevated privileges
+
+  '
+description: 'Attacker swaps a limited-scope token with one that has broader permissions but same audience, exploiting insufficient
+  scope validation to gain elevated privileges
+
+  '
+mitigations:
+- id: T1308.mitigation
+  description: 'Attacker swaps a limited-scope token with one that has broader permissions but same audience, exploiting insufficient
+    scope validation to gain elevated privileges
+
+    '
+code_signals:
+- id: T1308.signal
+  description: 'Attacker swaps a limited-scope token with one that has broader permissions but same audience, exploiting insufficient
+    scope validation to gain elevated privileges
+
+    '
+  heuristics:
+  - pattern: 'Attacker swaps a limited-scope token with one that has broader permissions but same audience, exploiting insufficient
+      scope validation to gain elevated privileges
+
+      '
+languages:
+- typescript
+- javascript
+- python
+- go
+- rust
+- java
+- scala
+output_schema:
+  requires_mitigations: false
+  allowed_status_values:
+  - pass
+  - fail
+  - partial
+  - unknown

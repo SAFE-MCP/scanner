@@ -1,0 +1,11 @@
+/target
+**/target
+**/node_modules
+safe-mcp/
+.DS_Store
+.env
+.env.local
+.idea/
+.vscode/
+*.log
+scan_outputs

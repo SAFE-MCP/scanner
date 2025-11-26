@@ -1,0 +1,16 @@
+[package]
+name = "server"
+version = "0.1.0"
+edition.workspace = true
+
+[dependencies]
+engine = { path = "../engine" }
+serde = { version = "1.0", features = ["derive"] }
+async-trait = "0.1"
+rmcp = { version = "0.8.0", features = ["server", "transport-io"] }
+schemars = "1"
+tokio = { version = "1.37", features = ["macros", "rt-multi-thread", "io-std"] }
+
+[dev-dependencies]
+tokio = { version = "1.37", features = ["rt-multi-thread", "macros"] }
+tempfile = "3.10"
