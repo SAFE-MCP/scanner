@@ -443,7 +443,7 @@ fn build_model(args: &ScanArgs, cfg: &engine::config::Config) -> Result<ModelBox
                 .or_else(|| cfg.model_names.clone().and_then(|m| m.get(0).cloned()))
                 .unwrap_or_else(|| "gpt-4o-mini".to_string());
             ModelBox(Arc::new(engine::adapters::openai::OpenAIModel::new(
-                name, key,
+                name, key, cfg.openai_base_url.clone()
             )))
         }
         Provider::Anthropic => {

@@ -319,7 +319,7 @@ fn build_model(args: &Args, cfg: &engine::config::Config) -> Result<ModelBox, St
                 .clone()
                 .or_else(|| cfg.model_names.clone().and_then(|m| m.get(0).cloned()))
                 .unwrap_or_else(|| "gpt-4o-mini".to_string());
-            Ok(ModelBox(Box::new(OpenAIModel::new(name, key))))
+            Ok(ModelBox(Box::new(OpenAIModel::new(name, key, cfg.openai_base_url.clone()))))
         }
         ProviderArg::Anthropic => {
             enforce_provider_allowlist(cfg, "anthropic")?;
