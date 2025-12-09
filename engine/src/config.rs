@@ -14,6 +14,8 @@ pub struct Config {
     #[serde(default)]
     pub openai_api_key: Option<String>,
     #[serde(default)]
+    pub openai_base_url: Option<String>,
+    #[serde(default)]
     pub anthropic_api_key: Option<String>,
     #[serde(default)]
     pub retry_max_retries: Option<usize>,
@@ -57,6 +59,7 @@ pub fn load_config(path: Option<&Path>) -> Result<Config, String> {
             allowed_providers: None,
             model_names: None,
             openai_api_key: None,
+            openai_base_url: None,
             anthropic_api_key: None,
             retry_max_retries: None,
             retry_delay_ms: None,
@@ -98,6 +101,11 @@ pub fn load_config(path: Option<&Path>) -> Result<Config, String> {
     if let Ok(val) = std::env::var("OPENAI_API_KEY") {
         if !val.is_empty() {
             cfg.openai_api_key = Some(val);
+        }
+    }
+    if let Ok(val) = std::env::var("OPENAI_BASE_URL") {
+        if !val.is_empty() {
+            cfg.openai_base_url = Some(val);
         }
     }
     if let Ok(val) = std::env::var("ANTHROPIC_API_KEY") {
@@ -236,6 +244,7 @@ model_names: ["gpt-4o"]
             allowed_providers: Some(vec!["openai".into()]),
             model_names: None,
             openai_api_key: None,
+            openai_base_url: None,
             anthropic_api_key: None,
             retry_max_retries: None,
             retry_delay_ms: None,
@@ -254,6 +263,7 @@ model_names: ["gpt-4o"]
             allowed_providers: Some(vec!["openai".into()]),
             model_names: None,
             openai_api_key: None,
+            openai_base_url: None,
             anthropic_api_key: None,
             retry_max_retries: None,
             retry_delay_ms: None,

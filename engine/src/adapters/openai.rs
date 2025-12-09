@@ -10,6 +10,7 @@ pub struct OpenAIModel {
     client: reqwest::Client,
     model_name: String,
     api_key: String,
+    base_url: String,
 }
 
 #[derive(Debug, Error)]
@@ -23,11 +24,12 @@ pub enum OpenAIAdapterError {
 }
 
 impl OpenAIModel {
-    pub fn new(model_name: String, api_key: String) -> Self {
+    pub fn new(model_name: String, api_key: String, base_url: Option<String>) -> Self {
         Self {
             client: reqwest::Client::new(),
             model_name,
             api_key,
+            base_url: base_url.unwrap_or_else(|| "https://api.openai.com/v1".to_string()),
         }
     }
 }
@@ -70,9 +72,10 @@ impl CodeModel for OpenAIModel {
             ]
         });
 
+        let url = format!("{}/chat/completions", self.base_url.trim_end_matches('/'));
         let resp = self
             .client
-            .post("https://api.openai.com/v1/chat/completions")
+            .post(&url)
             .bearer_auth(&self.api_key)
             .json(&body)
             .send()
@@ -155,8 +158,15 @@ fn parse_findings(
     prompt: &PromptPayload,
     model_name: &str,
 ) -> Result<Vec<ModelFinding>, OpenAIAdapterError> {
+    // Attempt to extract JSON if the model included extra text
+    let json_str = if let (Some(start), Some(end)) = (content.find('{'), content.rfind('}')) {
+        &content[start..=end]
+    } else {
+        content
+    };
+
     let envelope: ModelFindingsEnvelope =
-        serde_json::from_str(content).map_err(|e| OpenAIAdapterError::Parse(e.to_string()))?;
+        serde_json::from_str(json_str).map_err(|e| OpenAIAdapterError::Parse(e.to_string()))?;
     let mut out = Vec::new();
     for f in envelope.findings {
         let parsed_evidence = parse_evidence(&f.evidence);
